@@ -6,9 +6,9 @@
 node_modules/
 */node_modules/
 
-# ---- 构建产物 ----
-client/dist/
-server/dist/
+# ---- 构建产物（本地开发时忽略，Glitch部署需要提交）----
+# client/dist/
+# server/dist/
 *.tsbuildinfo
 
 # ---- 环境配置（含敏感信息）----

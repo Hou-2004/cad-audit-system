@@ -1,0 +1,1 @@
+{"install": "npm install build:frontend && npm run build:frontend", "start": "npm start", "watch": { "throttle": 1000 }}
