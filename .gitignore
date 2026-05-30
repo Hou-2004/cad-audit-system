@@ -1,0 +1,46 @@
+# ============================================
+#  CAD 审计系统 - Git 忽略规则
+# ============================================
+
+# ---- 依赖目录 ----
+node_modules/
+*/node_modules/
+
+# ---- 构建产物 ----
+client/dist/
+server/dist/
+*.tsbuildinfo
+
+# ---- 环境配置（含敏感信息）----
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# ---- 数据文件 ----
+server/data/memory-db.json
+server/memory-db.json
+uploads/
+*.log
+npm-debug.log*
+
+# ---- 编辑器 / IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ---- 操作系统 ----
+desktop.ini
+
+# ---- 临时文件 ----
+*.tmp
+*.temp
+.cache/
+.temp/
+
+# ---- WorkBuddy 工作区 ----
+.workbuddy/

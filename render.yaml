@@ -1,0 +1,57 @@
+# ============================================================
+#  CAD 文件规范审核系统 — Render 云部署配置
+#  使用方法: 在 Render Dashboard 导入此 Blueprint
+#  或者手动创建 Web Service 并关联此仓库
+# ============================================================
+
+services:
+  # ---- 全栈 Web 服务 (前端 + 后端 + 内存数据库) ----
+  - type: web
+    name: cad-audit-system
+    runtime: nodejs
+    plan: free
+    region: singapore
+    branch: main
+    healthCheckPath: /health
+
+    # 构建命令: 编译后端 + 构建前端
+    buildCommand: |
+      cd server
+      npm install
+      npx tsc --skipLibCheck
+      cd ../client
+      npm install
+      npm run build
+      cd ..
+
+    # 启动命令
+    startCommand: cd server && node serve.js
+
+    # 环境变量 (在 Render Dashboard 中设置)
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+    # 自动部署: 推送到 main 分支时触发
+    numInstances: 1
+
+# ============================================================
+#  部署步骤（手动方式）:
+#
+#  1. 注册 Render 账号 → https://render.com
+#  2. 点击 "New +" → "Web Service"
+#  3. 连接 GitHub 仓库 (将代码推送到 GitHub)
+#  4. 配置如下:
+#     - Runtime: Node.js
+#     - Build Command: cd server && npm install && npx tsc --skipLibCheck && cd ../client && npm install && npm run build
+#     - Start Command: cd server && node serve.js
+#     - Instance Type: Free ($0/月)
+#  5. 点击 "Create Web Service"
+#  6. 等待构建完成 → 获得公开访问 URL
+#  7. 用 admin@cad-audit.com / Cad@2026 登录
+#
+#  ⚠️ 注意:
+#  - Free 版本会在 15 分钟无活动后休眠，再次访问需 ~30 秒唤醒
+#  - 数据存储在内存中，服务重启后数据会重置为初始种子数据
+#  - 如需持久化数据，需要升级到付费版并接入 MySQL 数据库
+# ============================================================
